@@ -8,7 +8,7 @@ class Shell
   end
 
   def self.popen(command, &block)
-    IO.popen(command) { block.yield }
+    IO.popen(command, &block)
   end
 end
 

@@ -1,8 +1,5 @@
 #!/usr/bin/env ruby
 
-require 'pathname'
-APP_ROOT = File.join(File.dirname(Pathname.new(__FILE__).realpath),'..')
-
 require_relative 'lib/toolbelt/deploy.rb'
 
 server_name = File.exist?('.cloud66_stack') ? File.read('.cloud66_stack').chomp.strip : File.basename(Dir.pwd)
