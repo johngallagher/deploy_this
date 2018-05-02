@@ -1,0 +1,22 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+Deploy	lib/toolbelt/deploy.rb	/^  class Deploy$/;"	c	class:Toolbelt
+FakeShell	spec/toolbelt/deploy_spec.rb	/^class FakeShell$/;"	c
+Shell	lib/toolbelt/deploy.rb	/^class Shell$/;"	c
+Toolbelt	lib/toolbelt/deploy.rb	/^module Toolbelt$/;"	m
+call	lib/toolbelt/deploy.rb	/^    def call$/;"	f	class:Toolbelt.Deploy
+change_deploy_branch	lib/toolbelt/deploy.rb	/^    def change_deploy_branch branch$/;"	f	class:Toolbelt.Deploy
+cloud_66_toolbelt_installed?	lib/toolbelt/deploy.rb	/^    def cloud_66_toolbelt_installed?$/;"	f	class:Toolbelt.Deploy
+current_branch	lib/toolbelt/deploy.rb	/^    def current_branch$/;"	f	class:Toolbelt.Deploy
+current_branch_on_server	lib/toolbelt/deploy.rb	/^    def current_branch_on_server$/;"	f	class:Toolbelt.Deploy
+execute	lib/toolbelt/deploy.rb	/^  def self.execute(command)$/;"	F	class:Shell
+execute	spec/toolbelt/deploy_spec.rb	/^  def self.execute(command)$/;"	F	class:FakeShell
+initialize	lib/toolbelt/deploy.rb	/^    def initialize environment, server_name: Rails.root.basename.to_s, shell: Shell, stdout: STDOUT$/;"	f	class:Toolbelt.Deploy
+popen	lib/toolbelt/deploy.rb	/^  def self.popen(command, &block)$/;"	F	class:Shell
+popen	spec/toolbelt/deploy_spec.rb	/^  def self.popen(command, &block)$/;"	F	class:FakeShell
+push_branch	lib/toolbelt/deploy.rb	/^    def push_branch$/;"	f	class:Toolbelt.Deploy
+redeploy	lib/toolbelt/deploy.rb	/^    def redeploy$/;"	f	class:Toolbelt.Deploy
+setup_branch	lib/toolbelt/deploy.rb	/^    def setup_branch$/;"	f	class:Toolbelt.Deploy
+stack_and_environment_switches	lib/toolbelt/deploy.rb	/^    def stack_and_environment_switches$/;"	f	class:Toolbelt.Deploy
+success?	lib/toolbelt/deploy.rb	/^  def self.success?(command)$/;"	F	class:Shell
+success?	spec/toolbelt/deploy_spec.rb	/^  def self.success?(command)$/;"	F	class:FakeShell
