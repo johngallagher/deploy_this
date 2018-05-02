@@ -8,19 +8,18 @@ describe Toolbelt::Deploy do
 
     subject { described_class.new(environment, server_name: server_name, shell: FakeShell, stdout: StringIO.new) }
 
-    before do
-      expect(FakeShell).to receive(:success?).with("command -v cx > /dev/null").and_return(cx_tool_installed)
-    end
+    before { expect(FakeShell).to receive(:success?).with("command -v cx > /dev/null").and_return(cx_tool_installed) }
 
     context 'when cx tool is installed' do
-    let(:cx_tool_installed) { true }
-    it 'deploys' do
-      expect_shell_command("git push --set-upstream origin #{current_branch}")
-      expect_shell_command("echo $(git rev-parse --abbrev-ref HEAD)", and_return: current_branch)
-      expect_shell_command_streamed("cx redeploy --git-ref=#{current_branch} --stack=#{server_name} --environment=#{environment} --listen")
+      let(:cx_tool_installed) { true }
 
-      subject.call
-    end
+      it 'pushes the current branch and deploys it' do
+        expect_shell_command("git push --set-upstream origin #{current_branch}")
+        expect_shell_command("echo $(git rev-parse --abbrev-ref HEAD)", and_return: current_branch)
+        expect_shell_command_streamed("cx redeploy --git-ref=#{current_branch} --stack=#{server_name} --environment=#{environment} --listen")
+
+        subject.call
+      end
     end
   end
 
