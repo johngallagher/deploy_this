@@ -1,0 +1,70 @@
+#!/usr/bin/env ruby
+
+module Toolbelt
+  class DeployTask
+    def initialize environment, server_name: Rails.root.basename.to_s
+      @environment = environment
+      @server_name = server_name
+    end
+
+    def go
+      if cloud_66_toolbelt_installed?
+        puts "Pushing #{current_branch}..."
+        push_branch
+        puts ''
+
+        puts 'Redeploying app...'
+        redeploy
+      else
+        puts 'Cloud 66 toolbelt not found.'
+        puts ''
+        puts 'Install with:'
+        puts 'brew install cloud66/tap/c66cx'
+        puts ''
+      end
+    end
+
+    def current_branch
+      `echo $(git rev-parse --abbrev-ref HEAD)`.chomp
+    end
+
+    def cloud_66_toolbelt_installed?
+      system('command -v cx > /dev/null')
+    end
+
+    def setup_branch
+      if current_branch != current_branch_on_server
+        change_deploy_branch current_branch
+      else
+        puts "Already using #{current_branch}."
+      end
+    end
+
+    def stack_and_environment_switches
+      "--stack=#{@server_name} --environment=#{@environment}"
+    end
+
+    def current_branch_on_server
+      `cx settings list #{stack_and_environment_switches} git.branch`.chomp.split(' ').select(&:present?).second
+    end
+
+    def change_deploy_branch branch
+      `cx settings set git.branch #{branch} #{stack_and_environment_switches}`
+    end
+
+    def push_branch
+      `git push --set-upstream origin #{current_branch}`
+    end
+
+    def redeploy
+      IO.popen("cx redeploy --git-ref=#{current_branch} #{stack_and_environment_switches} --listen") do |io|
+        while (line = io.gets)
+          puts line
+        end
+      end
+    end
+  end
+end
+
+Toolbelt::DeployTask.new(:staging, server_name: File.read('.cloud66_stack').chomp.strip).go
+
