@@ -2,5 +2,6 @@
 
 require_relative 'lib/toolbelt/deploy.rb'
 
-Toolbelt::Deploy.new(:staging, server_name: File.read('.cloud66_stack').chomp.strip).call
+server_name = File.exist?('.cloud66_stack') ? File.read('.cloud66_stack').chomp.strip : File.basename(Dir.pwd)
+Toolbelt::Deploy.new(:staging, server_name: server_name).call
 

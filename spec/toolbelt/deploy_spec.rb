@@ -21,9 +21,24 @@ describe Toolbelt::Deploy do
         subject.call
       end
     end
+
+    context 'when cx tool is missing' do
+      let(:cx_tool_installed) { false }
+
+      it 'does not push the current branch' do
+        expect_no_shell_commands
+
+        subject.call
+      end
+    end
   end
 
   private
+
+  def expect_no_shell_commands
+    expect(FakeShell).to_not receive(:execute)
+    expect(FakeShell).to_not receive(:popen)
+  end
 
   def expect_shell_command(command, and_return: nil)
     expect(FakeShell).to receive(:execute).with(command).and_return(and_return)
