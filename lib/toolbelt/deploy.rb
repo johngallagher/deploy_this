@@ -64,6 +64,7 @@ module Toolbelt
 
     def redeploy
       @shell.popen("cx redeploy --git-ref=#{current_branch} #{stack_and_environment_switches} --listen") do |io|
+        return if io.nil?
         while (line = io.gets)
           @stdout.puts line
         end
